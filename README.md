@@ -6,23 +6,34 @@ based on [SAX distance](https://jmotif.github.io/sax-vsm_site/morea/algorithm/SA
 **OUTPUT**: .bed-file with SAX distances between each genome region and motif.
 Smaller distances correspond to the most motif-like regions of the genome.
 
+
 ## Installation:
 ```bash
-...
+# Mac OSX
+curl 'https://raw.githubusercontent.com/latur/saxmf/main/build/saxmf_Darwin' --output /usr/local/bin/saxmf
+chmod +x /usr/local/bin/saxmf
+saxmf
+
+# Linux
+curl 'https://raw.githubusercontent.com/latur/saxmf/main/build/saxmf_Linux' --output ~/.local/bin/saxmf
+chmod +x ~/.local/bin/saxmf
+saxmf
 ```
+
 
 ## Usage:
 ```bash
-./saxmf -f <bcov filename>
-        -m <motif filename> [OR -n <motif code>]
-        -o [result (optional)]
-        -t [threads (optional)]
+saxmf -f <bcov filename>
+      -m <motif filename> [OR -n <motif code>]
+      -o [result (optional)]
+      -t [threads (optional)]
 ```
+
 
 ## Examples:
 ```bash
-./saxmf -f ./genome/chrX.bcov -m ./motif/DEL_L.motif > output.bed
-./saxmf -f ./genome/chr1.bcov -n "DEL_L" -o output.bed -t 10
+saxmf -f ./genome/chrX.bcov -m ./motif/DEL_L.motif > output.bed
+saxmf -f ./genome/chr1.bcov -n "DEL_L" -o output.bed -t 10
 ```
 
 Built-in motif-codes (32x24) based on HGDP data: (-n CODE)
@@ -34,6 +45,7 @@ Built-in motif-codes (32x24) based on HGDP data: (-n CODE)
 ```
 
 Details: [https://swaveform.compbio.ru/](https://swaveform.compbio.ru/)
+
 
 ## Compilation:
 ```bash
