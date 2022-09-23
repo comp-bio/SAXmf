@@ -1,4 +1,5 @@
-int get_from_collection(char * code, Motif * result){
+int get_from_collection(char * code)
+{
 	Motif ms[16];
 
 	size_t motif_0[MOTIF_MAX_BYTES] = {17,17,18,18,18,18,18,18,18,17,17,16,15,14,13,12,11,10,9,8,7,6,5,5,4,4,4,4,4,4,4,5};
@@ -129,6 +130,6 @@ int get_from_collection(char * code, Motif * result){
 	ms[15].alphabet = 24;
 	ms[15].offset = 13.588002365125154;
 
-	for (size_t i = 0; i < 16; i++) if (!strcmp(ms[i].code, code)) { * result = ms[i]; return 0; };
+	for (size_t i = 0; i < 16; i++) if (!strcmp(ms[i].code, code)) {   motifs[motif_set] = ms[i]; motif_set++; return 0; };
 	return 1;
 }

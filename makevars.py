@@ -7,7 +7,7 @@ f_dist = './storage/ndist.c'
 files = glob.glob('./motif/mt_*.motif')
 files.sort()
 f = open(f_collection, 'w')
-f.write("int get_from_collection(char * code, Motif * result){\n")
+f.write("int get_from_collection(char * code)\n{\n")
 f.write(f"\tMotif ms[{len(files)}];\n\n")
 
 names = []
@@ -29,7 +29,10 @@ for i, m in enumerate(files):
     f.write(f"\tms[{i}].offset = {obj['offset']};\n")
     f.write(f"\n")
 
-f.write(f"\tfor (size_t i = 0; i < 16; i++) if (!strcmp(ms[i].code, code)) {{ * result = ms[i]; return 0; }};\n")
+f.write(f"\tfor (size_t i = 0; i < 16; i++) if (!strcmp(ms[i].code, code)) {{ ")
+f.write(f"  motifs[motif_set] = ms[i]; motif_set++; return 0; ")
+f.write(f"}};\n")
+
 f.write(f"\treturn 1;\n")
 f.write("}\n")
 f.close()

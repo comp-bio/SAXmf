@@ -10,7 +10,8 @@
 
 #include "inc/types.c"
 
-Motif motif;
+// Motif motif;
+Motif motifs[256];
 ThreadData * pd;
 char * src = NULL;
 char * out = NULL;
@@ -46,7 +47,17 @@ int main(int argc, char *argv[])
     }
 
     FILE * res;
-    if (out != NULL) res = fopen(out, "w");
+    if (out != NULL) {
+        res = fopen(out, "w");
+        fprintf(res, "#chr\tstart\tend");
+        for (int mti = 0; mti < motif_set; mti++) fprintf(res, "\t%s", motifs[mti].code);
+        fprintf(res, "\n");
+    } else {
+        printf("#chr\tstart\tend");
+        for (int mti = 0; mti < motif_set; mti++) printf("\t%s", motifs[mti].code);
+        printf("\n");
+    }
+
     for (unsigned t = 0; t < threads; t++){
         rewind(pd[t].outfile);
         char ch = fgetc(pd[t].outfile);
@@ -70,7 +81,10 @@ int main(int argc, char *argv[])
     free(chr);
     free(pd);
     free(thread);
-    free(motif.dist);
+    free(motifs[0].dist);
+    // for (int mti = 0; mti < motif_set; mti++) free(motifs[mti].dist);
+
+
 
     return 0;
 }

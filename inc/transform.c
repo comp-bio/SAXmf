@@ -31,7 +31,7 @@ void transform(const double * input, Motif motif, size_t * out, size_t pointer)
         if (merged_k == merged) {
             sum = sum/merged;
             size_t a = 0;
-            for (a = 0; a < motif.alphabet-1; a++) if (motif.dist[a] > sum) break;
+            for (a = 0; a < motif.alphabet-1; a++) if (motifs[0].dist[a] > sum) break; // [!!!]
             out[i++] = a;
             merged_k = 0;
             sum = 0;

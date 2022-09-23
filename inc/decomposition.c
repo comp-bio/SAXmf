@@ -21,7 +21,6 @@ void decomposition(size_t * threads)
     for (size_t t = 0; t < *threads; t++){
         pd[t].begin = t * steps4thread;
         pd[t].count = steps4thread;
-        pd[t].motif = motif;
         pd[t].outfile = tmpfile();
 
         if (pd[t].begin >= total_steps) {

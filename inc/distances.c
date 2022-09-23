@@ -12,7 +12,7 @@ double sax_dist_motif(Motif motif, size_t * x)
         size_t max_symbol = MAX(x[k],motif.motif[k-offset]);
         size_t min_symbol = MIN(x[k],motif.motif[k-offset]);
         // fprintf(stderr, "%zu %zu %f %f \n", max_symbol, min_symbol, motif.dist[max_symbol-1], motif.dist[min_symbol]);
-        d += pow(motif.dist[max_symbol-1] - motif.dist[min_symbol], 2);
+        d += pow(motifs[0].dist[max_symbol-1] - motifs[0].dist[min_symbol], 2); // [!!!]
     }
     return sqrt(d * ((float) WINDOW) / motif.size);
 }
@@ -28,7 +28,7 @@ void * distances(void * data)
         pthread_exit(0);
     }
 
-    size_t * transformed = (size_t *) malloc(sizeof(size_t) * block->motif.segments);
+    size_t * transformed = (size_t *) malloc(sizeof(size_t) * motifs[0].segments); // [!!!]
     double input[WINDOW];
 
     fseek(f, block->begin * STEP * 2, SEEK_SET);
@@ -46,10 +46,14 @@ void * distances(void * data)
 
         big offset = (block->begin + s) * STEP;
 
-        transform(input, block->motif, transformed, pointer);
-        double dd = sax_dist_motif(block->motif, transformed);
+        fprintf(block->outfile, "%s\t%llu\t%llu", chr, offset, offset + WINDOW);
 
-        fprintf(block->outfile, "%s\t%llu\t%llu\t%f\n", chr, offset, offset + WINDOW, dd);
+        for (int mti = 0; mti < motif_set; mti++) {
+            transform(input, motifs[mti], transformed, pointer);
+            double dd = sax_dist_motif(motifs[mti], transformed);
+            fprintf(block->outfile, "\t%f", dd);
+        }
+        fprintf(block->outfile, "\n");
 
         /*
          * DEBUG:

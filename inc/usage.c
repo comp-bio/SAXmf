@@ -23,7 +23,8 @@ void usage()
 void terminate(char * error)
 {
     if (motif_set == 1) {
-        free(motif.dist);
+        free(motifs[0].dist); // [!!!]
+        // free(motif.dist);
     }
     if (out_set == 1) {
         free(out);

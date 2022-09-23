@@ -20,7 +20,6 @@ typedef struct {
 typedef struct {
     char * src;
     char * chr;
-    Motif motif;
     big begin;
     big count;
     size_t step;
