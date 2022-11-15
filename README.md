@@ -53,3 +53,17 @@ gcc saxmf.c -std=c99 -m64 -O3 -lpthread -lm -o build/saxmf # OR: build/saxmf_$(u
 # Valgrind, memcheck:
 valgrind --leak-check=full ./build/saxmf_Linux -f ./examples/test.bcov -n DEL_L -o /tmp/output.bed -t 16
 ```
+
+## Snakemake:
+
+```bash
+virtualenv -p python snm
+source snm/bin/activate
+pip install snakemake
+```
+
+```bash
+wget https://ftp.ncbi.nlm.nih.gov/toolbox/gbench/tutorial/Tutorial6/BAM_Test_Files/scenario1_with_index/mapt.NA12156.altex.bam -O snakedata/example.bam
+wget https://ftp.ncbi.nlm.nih.gov/toolbox/gbench/tutorial/Tutorial6/BAM_Test_Files/scenario1_with_index/mapt.NA12156.altex.bam.bai -O snakedata/example.bam.bai
+snakemake --cores 4
+```
